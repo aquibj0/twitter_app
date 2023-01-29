@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TwitterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,5 +31,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('login/twitter', 'Auth\LoginController@redirectToTwitter');
-Route::get('login/twitter/callback', 'Auth\LoginController@handleTwitterCallback');
+Route::controller(TwitterController::class)->group(function(){
+    Route::get('auth/twitter', 'redirectToTwitter')->name('auth.twitter');
+    Route::get('auth/twitter/callback', 'handleTwitterCallback');
+});
